@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Home</h1>
+    <input type ="button" onclick="sayHello()" value="Click Me">
     <p> This is the home page</p>
     <a href="/about">About</a>
     <a href="/form">Send details</a>
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
 </body>
 </html>
