@@ -12,10 +12,11 @@ def about():
     current_time=datetime.now()
     return render_template("about.html", current_time=current_time)
 
-@app.route("/form",methods=["POST","GET"])
+@app.route("/form",methods=["POST","GET"])             #route accepts data only from GET method here POST is explicitly accepted
 def form():
     if request.method =="POST":        #for POST requests(when user submits the form a post requst is sent with form data)
-        data=request.form
+        data=request.form              #request.form get data from form if form uses post method
+                                                            #if form uses get method then request.args should be used
         print(data)
         name=data["name"]
         email=data["email"]
