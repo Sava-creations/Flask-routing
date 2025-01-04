@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request,make_response
 from datetime import datetime
 
 app = Flask(__name__,template_folder="templates") #see templates folder for html pages
@@ -15,16 +15,33 @@ def about():
 @app.route("/form",methods=["POST","GET"])             #route accepts data only from GET method here POST is explicitly accepted
 def form():
     if request.method =="POST":        #for POST requests(when user submits the form a post requst is sent with form data)
-        data=request.form              #request.form get data from form if form uses post or put method
-                                                            #if form uses get method then request.args should be used
-        print(data)
-        name=data["name"]
-        email=data["email"]
+        print(request.form )            #request.form get data from form if form uses post or put method
+                                         #if form uses get method then request.args should be used
+        
+        name=request.form ["name"]
+        email=request.form ["email"]
         print(name,email)        #output to terminal
         print(f"Name: {name}, Email: {email}")
         return render_template("show.html", name=name, mail=email) 
     #else:
     return render_template("form.html")                #for GET requests(from index.html it directs to form.html)
+
+@app.route('/index')
+def index():
+    return render_template('setcookie.html')
+
+@app.route('/setcookie',methods=['POST','GET'])         #setting the cookie
+def setcookie():
+    if request.method=='POST':
+        user=request.form['nm']
+        resp=make_response(render_template('readcookie.html'))      #resp is a response object   
+        resp.set_cookie('userID',user)
+        return resp
+
+@app.route('/getcookie')                                 #getting the cookie
+def getcookie():    
+    name=request.cookies.get('userID')
+    return '<h1>welcome '+name+'</h1>'
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
