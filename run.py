@@ -15,7 +15,7 @@ def about():
 @app.route("/form",methods=["POST","GET"])             #route accepts data only from GET method here POST is explicitly accepted
 def form():
     if request.method =="POST":        #for POST requests(when user submits the form a post requst is sent with form data)
-        data=request.form              #request.form get data from form if form uses post method
+        data=request.form              #request.form get data from form if form uses post or put method
                                                             #if form uses get method then request.args should be used
         print(data)
         name=data["name"]
