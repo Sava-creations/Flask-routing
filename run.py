@@ -26,8 +26,8 @@ def form():
     #else:
     return render_template("form.html")                #for GET requests(from index.html it directs to form.html)
 
-@app.route('/index')
-def index():
+@app.route('/set')
+def set():
     return render_template('setcookie.html')
 
 @app.route('/setcookie',methods=['POST','GET'])         #setting the cookie
@@ -45,5 +45,3 @@ def getcookie():
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
-
-
