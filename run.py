@@ -34,13 +34,13 @@ def index():
 def setcookie():
     if request.method=='POST':
         user=request.form['nm']
-        resp=make_response(render_template('readcookie.html'))      #resp is a response object   
-        resp.set_cookie('userID',user)
-        return resp
+        resp=make_response(render_template('readcookie.html'))      #resp is a response object. It creates a response object from the readcookie page    
+        resp.set_cookie('userID',user)         #add cookie details as a response header which instruct the user to save the cookie
+        return resp                          #return resp(setcookie header+readcookie page) to save the cookie in browser and return to readcookie page
 
 @app.route('/getcookie')                                 #getting the cookie
 def getcookie():    
-    name=request.cookies.get('userID')
+    name=request.cookies.get('userID')                   #request.cookies.get('userID') returns the value of userID
     return '<h1>welcome '+name+'</h1>'
 
 if __name__ == "__main__":
