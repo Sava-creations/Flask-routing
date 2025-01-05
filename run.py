@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,make_response
+from flask import Flask, render_template,request,make_response,abort
 from datetime import datetime
 
 app = Flask(__name__,template_folder="templates") #see templates folder for html pages
@@ -14,15 +14,17 @@ def about():
 
 @app.route("/form",methods=["POST","GET"])             #route accepts data only from GET method here POST is explicitly accepted
 def form():
-    if request.method =="POST":        #for POST requests(when user submits the form a post requst is sent with form data)
+    if request.method =="POST":                #for POST requests(when user submits the form a post requst is sent with form data)
         print(request.form )            #request.form get data from form if form uses post or put method
                                          #if form uses get method then request.args should be used
-        
         name=request.form ["name"]
         email=request.form ["email"]
         print(name,email)        #output to terminal
         print(f"Name: {name}, Email: {email}")
-        return render_template("show.html", name=name, mail=email) 
+        if request.form["name"] == "sava" or request.form["email"] == "savandikodithuwakku@gmail.com":
+            return render_template("show.html", name=name, mail=email) 
+        else:
+            abort(401)                                #UNauthorized error msg 
     #else:
     return render_template("form.html")                #for GET requests(from index.html it directs to form.html)
 
