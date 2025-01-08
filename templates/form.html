@@ -7,6 +7,11 @@
 </head>
 <body>
     <form method="POST" action="/form">
+
+        {% if error %}
+            <p>{{error}}</p>
+        {% endif %}
+
         <label>Enter your name</label>
         <input type="text" name="name">
         <br>
