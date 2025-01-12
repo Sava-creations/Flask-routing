@@ -1,14 +1,15 @@
 from flask import Flask, render_template,request,make_response,abort,flash
 from datetime import datetime
+from werkzeug.utils import secure_filename                                #to get secure file name
 
-app = Flask(__name__,template_folder="templates") #see templates folder for html pages
+app = Flask(__name__,template_folder="templates")                   #see templates folder for html pages
 
-app.secret_key="mysecretkey"
-@app.route("/") #render this for empty routes
+app.secret_key="mysecretkey"                               
+@app.route("/")                                                     #render this for empty routes
 def home():
     return render_template("index.html")
     
-@app.route("/about") #about route
+@app.route("/about")                                                #about route
 def about():
     current_time=datetime.now()
     return render_template("about.html", current_time=current_time)
@@ -23,6 +24,8 @@ def form():
         email=request.form ["email"]
         print(name,email)                                            #output to terminal
         print(f"Name: {name}, Email: {email}")
+        f=request.files["file"]                                      #get form data
+        f.save(secure_filename(f.filename))                          #ensures the file name is secure and save it
         if request.form["name"] == "sava" and request.form["email"] == "savandikodithuwakku@gmail.com":
             flash("User logged in successfully")
             return render_template("show.html", name=name, mail=email) 
@@ -50,4 +53,4 @@ def getcookie():
     return '<h1>welcome '+name+'</h1>'
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=True)                 #run the app by starting the server

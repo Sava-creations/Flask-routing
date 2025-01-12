@@ -6,9 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST" action="/form">
+    <form method="POST" action="/form" enctype="multipart/form-data">               <!--method=POST enctype=multipart/form-data is mandatory for file uploading-->
 
-        {% if error %}
+        {% if error %}                                                              
             <p>{{error}}</p>
         {% endif %}
 
@@ -17,6 +17,7 @@
         <br>
         <label>Enter your email</label>
         <input type="email" name="email">
+        <input type="file" name="file">
         <br><br>
         <input type="submit" value="Submit">
     </form>
